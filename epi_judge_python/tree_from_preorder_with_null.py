@@ -11,6 +11,8 @@ def reconstruct_preorder(preorder: List[int]) -> BinaryTreeNode:
     def compute_tree_size(root_index_in_preorder: int) -> int:
         """
         Compute tree size, including null nodes, for the tree at the given root index
+        But look at the solution in the book which doesn't need this function, but instead
+        moving the iterator along the way.
         """
         if not preorder[root_index_in_preorder]:
             return 1  # null root is counted!
