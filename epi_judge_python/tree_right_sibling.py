@@ -1,3 +1,4 @@
+import collections
 import functools
 
 from test_framework import generic_test
@@ -13,7 +14,23 @@ class BinaryTreeNode:
 
 
 def construct_right_sibling(tree: BinaryTreeNode) -> None:
-    # TODO - you fill in here.
+    if not tree:
+        return
+
+    NodeInfo = collections.namedtuple("NodeInfo", ("node", "level"))
+    queue = collections.deque([NodeInfo(node=tree, level=0)])
+    prev_node = None
+    prev_level = -1
+    while queue:
+        current, level = queue.popleft()
+        if current.left:
+            queue.append(NodeInfo(node=current.left, level=level + 1))
+        if current.right:
+            queue.append(NodeInfo(node=current.right, level=level + 1))
+        if prev_node and prev_level == level:
+            prev_node.next = current
+        prev_node = current
+        prev_level = level
     return
 
 

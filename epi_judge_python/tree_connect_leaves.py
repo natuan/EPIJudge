@@ -16,7 +16,7 @@ def create_list_of_leaves(tree: BinaryTreeNode) -> List[BinaryTreeNode]:
     right_leaves = create_list_of_leaves(tree.right)
     return left_leaves + right_leaves
 
-
+ 
 @enable_executor_hook
 def create_list_of_leaves_wrapper(executor, tree):
     result = executor.run(functools.partial(create_list_of_leaves, tree))
