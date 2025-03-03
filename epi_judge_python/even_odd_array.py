@@ -10,6 +10,18 @@ from test_framework.test_utils import enable_executor_hook
 def even_odd(A: List[int]) -> None:
     # TODO - you fill in here.
     # Organize elements of array A in the order of even and odd numbers
+
+    i, j = 0, len(A) - 1
+    while i < j:
+        if A[i] % 2 == 0:
+            i += 1
+        else:
+            # Alway swap when A[i] is odd
+            A[i], A[j] = A[j], A[i]
+            j -= 1
+
+    """
+    # V1: maintain [0, i -1) and [j, -1) as even and odd numbers
     i, j = 0, len(A) - 1
     while i < j:
         if A[i] % 2 == 0:
@@ -22,6 +34,7 @@ def even_odd(A: List[int]) -> None:
             A[j] = tmp
             i += 1
             j -= 1
+    """
     return
 
 
