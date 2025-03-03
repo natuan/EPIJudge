@@ -1,3 +1,7 @@
+"""
+Problem 5.1, page 41
+"""
+
 import functools
 from typing import List
 
@@ -10,6 +14,23 @@ RED, WHITE, BLUE = range(3)
 
 def dutch_flag_partition(pivot_index: int, A: List[int]) -> None:
     # TODO - you fill in here.
+    if not A or pivot_index < 0 or pivot_index >= len(A):
+        return
+    pivot = A[pivot_index]
+
+    A[0], A[pivot_index] = A[pivot_index], A[0]
+    l, r = 1, len(A)
+    left_most_pivot_index = 0
+    while (l < r):
+        # Invariance: A[:l] contains elements <= pivot, A[r:] > pivot, A[l:r] not processed
+        if A[l] < pivot:
+            A[l], A[left_most_pivot_index] = A[left_most_pivot_index], A[l]
+            left_most_pivot_index += 1
+        elif A[l] == pivot:
+            l += 1
+        else:
+            A[l], A[r-1] = A[r-1], A[l]
+            r -= 1
     return
 
 
