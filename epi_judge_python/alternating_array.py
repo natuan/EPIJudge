@@ -8,6 +8,11 @@ from test_framework.test_utils import enable_executor_hook
 
 def rearrange(A: List[int]) -> None:
     # TODO - you fill in here.
+    if not A or len(A) <= 1:
+        return
+    for i in range(1, len(A)):
+        if (i % 2 == 1 and A[i] < A[i-1]) or (i % 2 == 0 and A[i] > A[i-1]):
+            A[i], A[i-1] = A[i-1], A[i]
     return
 
 
