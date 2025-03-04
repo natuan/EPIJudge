@@ -1,15 +1,32 @@
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 
+# Tuan: to be continued
 
 def int_to_string(x: int) -> str:
     # TODO - you fill in here.
-    return '0'
+    if x == 0:
+        return "0"
+    neg = x < 0
+    x = -x if x < 0 else x
+    s = ""
+    while x > 0:
+        s += chr(ord('0') + x % 10)
+        x /= 10
+    if neg:
+        s += "-"
+    s = reversed(s)
+    return s
 
 
 def string_to_int(s: str) -> int:
     # TODO - you fill in here.
-    return 0
+    start = 0 if s[0] not in ["-", "+"] else 1
+    x = 0
+    for i in range(start, len(s)):
+        x = x * 10 + int(s[i])
+    x = -x if s[0] == '-' else x
+    return x
 
 
 def wrapper(x, s):
