@@ -3,7 +3,7 @@ from typing import Optional
 from list_node import ListNode
 from test_framework import generic_test
 
-# Problem 7.1: reverse sublist
+# Problem 7.2: reverse sublist
 
 def reverse_sublist(L: ListNode, start: int,
                     finish: int) -> Optional[ListNode]:
