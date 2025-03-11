@@ -1,15 +1,45 @@
 import functools
-from typing import Optional
+from typing import Dict, Optional
 
 from list_node import ListNode
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
 
+# Problem 7.3: Is a list cyclic?
+import traceback
+import sys
 
 def has_cycle(head: ListNode) -> Optional[ListNode]:
     # TODO - you fill in here.
+
+    def _cycle_len(node):
+        step = 0
+        temp = node
+        while True:
+            step += 1
+            temp = temp.next
+            if temp is node:
+                break
+        return step
+
+    fast = slow = head
+    cycle_head = None
+    while fast and slow:
+        slow = slow.next
+        fast = fast.next.next if fast.next else None
+        if fast and slow and fast is slow:            
+            # Cycle detected!
+            advance = head
+            for _ in range(_cycle_len(slow)):
+                advance = advance.next
+            cycle_head = head
+            while cycle_head is not advance:
+                cycle_head = cycle_head.next
+                advance = advance.next
+            return cycle_head
     return None
+
 
 
 @enable_executor_hook
