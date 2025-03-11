@@ -4,10 +4,15 @@ from list_node import ListNode
 from test_framework import generic_test
 from test_framework.test_utils import enable_executor_hook
 
+# Problem 7.6: delete node from list
 
 # Assumes node_to_delete is not tail.
 def deletion_from_list(node_to_delete: ListNode) -> None:
     # TODO - you fill in here.
+    next_node = node_to_delete.next
+    assert next_node is not None
+    node_to_delete.data = next_node.data
+    node_to_delete.next = next_node.next
     return
 
 
