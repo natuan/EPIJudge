@@ -6,10 +6,40 @@ from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
 
+# Problem 7.12: reorganize list given a pivot
+
 
 def list_pivoting(l: ListNode, x: int) -> Optional[ListNode]:
     # TODO - you fill in here.
-    return None
+    if not l:
+        return None
+
+    """
+    # The following does not work!!! Why?
+    #less_dummy_head, equal_dummy_head, greater_dummy_head = [ListNode()] * 3
+    #less_it, equal_it, greater_it = less_dummy_head, equal_dummy_head, greater_dummy_head"
+    """
+    less_it = less_dummy_head = ListNode()
+    equal_it = equal_dummy_head = ListNode()
+    greater_it = greater_dummy_head = ListNode()
+    it = l
+    while it:
+        if it.data < x:
+            less_it.next = it
+            less_it = less_it.next
+        elif it.data == x:
+            equal_it.next = it
+            equal_it = equal_it.next
+        else:
+            greater_it.next = it
+            greater_it = greater_it.next
+        it = it.next
+
+    greater_it.next = None
+    equal_it.next = greater_dummy_head.next
+    less_it.next = equal_dummy_head.next
+    return less_dummy_head.next
+
 
 
 def linked_to_list(l):
