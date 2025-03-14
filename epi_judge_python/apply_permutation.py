@@ -7,6 +7,29 @@ from test_framework import generic_test
 
 def apply_permutation(perm: List[int], A: List[int]) -> None:
     # TODO - you fill in here.
+
+    if not A:
+        return None
+    
+    for i in range(len(A)):
+        while perm[i] != i:
+            # Both work
+            A[i], A[perm[i]] = A[perm[i]], A[i]
+            #A[perm[i]], A[i] = A[i], A[perm[i]]
+            
+            # Swapping: non-pythonic way
+            #temp = perm[perm[i]]
+            #perm[perm[i]] = perm[i]
+            #perm[i] = temp
+            
+            # Doesn't work!
+            #perm[i], perm[perm[i]] = perm[perm[i]], perm[i]
+
+            # Work
+            perm[perm[i]], perm[i] = perm[i], perm[perm[i]]
+
+    """"
+    # 1st version
     if not A or not perm:
         return
     for i in range(len(A)):
@@ -15,6 +38,7 @@ def apply_permutation(perm: List[int], A: List[int]) -> None:
             
             # This won't work!!!!: perm[i], perm[perm[i]] = perm[perm[i]], perm[i]
             perm[perm[i]], perm[i] = perm[i], perm[perm[i]]
+    """
     return
 
 
