@@ -7,9 +7,18 @@ from test_framework.random_sequence_checker import (
     compute_combination_idx, run_func_with_retries)
 from test_framework.test_utils import enable_executor_hook
 
+# Problem 5.12: random sampling from offline array
 
+import random
 def random_sampling(k: int, A: List[int]) -> None:
     # TODO - you fill in here.
+    if not A:
+        return None
+    
+    for i in range(k):
+        j = random.randint(i, len(A) - 1)
+        A[i], A[j] = A[j], A[i]
+
     return
 
 
