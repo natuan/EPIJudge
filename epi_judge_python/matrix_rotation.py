@@ -3,11 +3,12 @@ from typing import List
 from test_framework import generic_test
 
 # Problem 5.19: rotate matrix 90% clockwise
+# See solution for much simpler implementation
 from typing import Tuple
 
 def rotate_matrix(square_matrix: List[List[int]]) -> None:
     # TODO - you fill in here.
-    
+
     def _next_pos(pos: Tuple[int, int], offset: int, matrix_size: int) -> Tuple[int, int]:
         if matrix_size <= 1:
             return pos
