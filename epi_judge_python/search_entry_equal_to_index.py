@@ -5,10 +5,23 @@ from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
 
+#Problem 11.2: search entry equal to index
 
 def search_entry_equal_to_its_index(A: List[int]) -> int:
     # TODO - you fill in here.
-    return 0
+    if not A:
+        return -1
+    lo, hi = 0, len(A) - 1
+    while lo <= hi:
+        mid = lo + (hi - lo) // 2
+        if A[mid] < mid:
+            lo = mid + 1
+        elif A[mid] == mid:
+            return mid
+        else:
+            # A[mid] > mid
+            hi = mid - 1
+    return -1
 
 
 @enable_executor_hook
