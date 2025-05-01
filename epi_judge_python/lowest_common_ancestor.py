@@ -8,30 +8,32 @@ from test_framework.binary_tree_utils import must_find_node, strip_parent_link
 from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
 
+import collections
 
 def lca(tree: BinaryTreeNode, node0: BinaryTreeNode,
         node1: BinaryTreeNode) -> Optional[BinaryTreeNode]:
-    Result = collections.namedtuple("Result", ("lca", "num_target_nodes"))
-
-    def lca_helper(tree, node0, node1) -> Result:
-        if tree is None:
-            return Result(None, 0)
+    
+    Result = collections.namedtuple("Result", ("found_node0", "found_node1", "lca"))
+    
+    def lca_helper(root, n0, n1) -> Result:
+        if not root:
+            return Result(False, False, None)
         
-        left_result = lca_helper(tree.left, node0, node1)
-        if left_result.num_target_nodes == 2:
-            return left_result
+        lca_left = lca_helper(root.left, n0, n1)
+        if lca_left.lca:
+            return lca_left
         
-        right_result = lca_helper(tree.right, node0, node1)
-        if right_result.num_target_nodes == 2:
-            return right_result
-
-        num_target_nodes = left_result.num_target_nodes + right_result.num_target_nodes + (node0, node1).count(tree)
-        lca = tree if num_target_nodes == 2 else None
-
-        return Result(lca, num_target_nodes)
-
-    result = lca_helper(tree, node0, node1)
-    return result.lca
+        lca_right = lca_helper(root.right, n0, n1)
+        if lca_right.lca:
+            return lca_right
+        
+        found_node0 = lca_left.found_node0 or lca_right.found_node0 or root == n0
+        found_node1 = lca_left.found_node1 or lca_right.found_node1 or root == n1
+        lca = root if found_node0 and found_node1 else None
+        return Result(found_node0, found_node1, lca)
+        
+    res = lca_helper(tree, node0, node1)
+    return res.lca
 
 
 @enable_executor_hook
