@@ -7,10 +7,26 @@ from test_framework.random_sequence_checker import (
     compute_combination_idx, run_func_with_retries)
 from test_framework.test_utils import enable_executor_hook
 
+# Problem 5.15: random subset from {0,1,...,n-1}
+ 
+import collections
+import random
 
 def random_subset(n: int, k: int) -> List[int]:
     # TODO - you fill in here.
-    return []
+    if n <= 0 or k <= 0:
+        return []
+    
+    chosen = collections.OrderedDict()
+    results = []
+    for i in range(k):
+        j = random.randrange(n-i)
+        if j in chosen:
+            results.append(chosen[j])
+        else:
+            results.append(j)
+        chosen[j] = n - i - 1
+    return results
 
 
 @enable_executor_hook
